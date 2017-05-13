@@ -1,0 +1,145 @@
+/* Main index.html CSS (to make things pretty) */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+#dialog-wrapper {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.95);
+    width: 100%;
+    height: 100%;
+    z-index: 101;
+}
+
+#nickname-dialog {
+    width: 300px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+#header {
+    height: 60px;
+}
+
+.collection-header {
+    border-bottom: 0;
+}
+
+#main-wrapper {
+    display: none;
+}
+
+#messages-container {
+    height: 500px;
+    overflow-y: scroll;
+    margin: 10px;
+}
+
+#messages-container::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+#messages-container::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#messages-container::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: #555;
+}
+
+.collapsible-body {
+    background: #f5f5f5;
+}
+
+.collection-item {
+    background: #f5f5f5;
+}
+
+.reply {
+    background: #f5f5f5;
+}
+
+.reply-timestamp {
+    margin-top: 0 !important;
+}
+
+.reply-input {
+    margin: 0 !important;
+}
+
+#send-area {
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    height: 50px;
+
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#send-input {
+    padding: 0;
+    margin: 0;
+}
+
+.message {
+    word-wrap: break-word;
+}
+
+.reply-input-wrapper {
+    height: 20px;
+}
+
+.btn-reply {
+    padding: 0 0.2rem;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #a0a0a0;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: #a0a0a0;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+
+    color: #a0a0a0;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #a0a0a0;
+}
+
+/* label color */
+.input-field label {
+    color: dodgerblue;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: dodgerblue;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid dodgerblue;
+    box-shadow: 0 1px 0 0 dodgerblue;
+}

@@ -1,10 +1,33 @@
 {
-  "name"         : "node-skeleton",
-  "version"      : "0.0.0",
-  "description"  : "NodeJs + express + angularJs skeleton.",
-  "main"         : "app.js",
-  "author"       : "OriW",
-  "dependencies" : {
-    "express"         : "~4.6.1"
-  }
+  "name": "chat-challenge",
+  "version": "0.0.0",
+  "description": "Chat client & server (including chat-bot)",
+  "main": "app.js",
+  "author": "Matan",
+  "dependencies": {
+    "express": "~4.6.1",
+    "socket.io": "^2.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/coldnine/chat-challenge/issues"
+  },
+  "keywords": [
+    "chat",
+    "chatbot",
+    "nodjs"
+  ],
+  "contributors": [
+    {
+      "name": "Matan",
+      "email": "matanalfaso@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coldnine/chat-challenge"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "private": true
 }

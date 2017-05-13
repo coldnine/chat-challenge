@@ -1,23 +1,63 @@
-# Skeleton app with Node.js + express + angular
+# Chat Challenge
+Live example: -- link --
 
-## Requirements
+### Requirements
+- Node.js 
+- Express
+- HTTP
+- Elasticsearch
 
-- [Node and npm](http://nodejs.org)
+### Client libraries used
+- jQuery 
+- socket.io
+- Materialize (CSS)
 
-## Installation
+### Installation
+Simply clone the repository to your hard drive:
 
-1. `git clone git@github.com:forter/node-skeleton.git`
-2. `cd node-skeleton`
-3. `npm install`
-3. `node app.js`
-4. Go to `http://localhost:3000`
-5. Enjoy life.
+    $ git clone https://github.com/coldnine/chat-challenge
 
-## Usage
+### Use
+Execute elasticsearch ('localhost': 9200), and execute the main JS file using JSON:
+    
+    $ node app.js
 
-Add routes to server in: `server/routes.js`
+### Chat bot commands & features
+!["K9 robot"](http://img.auctiva.com/imgdata/3/4/3/8/7/2/webimg/411590887_o.jpg)
 
-Main angular module: `client/app.js`
+Since the chat is Q&A based, using elasticsearch the server determines whether a question had been asked before, 
+and posts a posted answer.
 
-Main html file: `client/index.html`
+Commands:
+- xkcd: Posts a link to random _xkcd_ comics
+- random fact: Posts a random fact
 
+### Single Message JSON Structure
+Each message contains the following:
+- Sender name
+- Message content
+- Timestamp of the message
+
+A "parent" question also contains a list of replies.
+
+    [
+        ...
+            
+        {
+            "id": id_number
+            "name": "sender_name",
+            "message": "message_content",
+            "timestamp": time-stamp,
+            "replies": [
+                {
+                    "name": "replier_name",
+                    "message": "reply_content",
+                    "timestamp": time-stamp
+                },
+                
+                ...
+            ]
+        },
+        
+        ...
+    ]
