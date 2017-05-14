@@ -1,16 +1,16 @@
 var socket, name;
 
 // Socket.io connection
-$(document).ready(function() {
+$(document).ready(function () {
     // Socket.io
     socket = io();
     name = '';
 
     // Get nickname
-    $('#nickname-set-button').click(function() {
+    $('#nickname-set-button').click(function () {
         name = $('#nickname-input').val();
 
-        if(!name)
+        if (!name)
             return;
 
         $('#dialog-wrapper').fadeOut(100);
@@ -22,8 +22,8 @@ $(document).ready(function() {
 
     // Send parent message
     $('#send-button').click(send_message);
-    $('#send-input').on('keypress', function(e) {
-        if(e.which === 13)
+    $('#send-input').on('keypress', function (e) {
+        if (e.which === 13)
             send_message();
     });
 
@@ -38,12 +38,12 @@ $(document).ready(function() {
     // Socket event handlers
 
     // Announcement from server
-    socket.on('announcement', function(message){
+    socket.on('announcement', function (message) {
         add_announcement(message);
     });
 
     // New user message sent
-    socket.on('message', function(data){
+    socket.on('message', function (data) {
         data = JSON.parse(data);
 
         // Nickname & message
@@ -59,7 +59,7 @@ $(document).ready(function() {
     });
 
     // New reply
-    socket.on('reply', function(data){
+    socket.on('reply', function (data) {
         // Parse JSON
         data = JSON.parse(data);
 
@@ -73,12 +73,12 @@ $(document).ready(function() {
     });
 
     // New user connected
-    socket.on('user connected', function(username){
+    socket.on('user connected', function (username) {
         add_user(username);
     });
 
     // Old user disconnected
-    socket.on('user disconnected', function(username){
+    socket.on('user disconnected', function (username) {
         remove_user(username);
     });
 });
@@ -89,7 +89,7 @@ function send_message() {
     var send_input = $('#send-input');
     var message = send_input.val();
 
-    if(!message)
+    if (!message)
         return;
 
     var data = {
@@ -107,7 +107,7 @@ function send_reply(input_element) {
     var id = input_element.attr('id').slice(12);
     var reply_message = input_element.val();
 
-    if(!reply_message)
+    if (!reply_message)
         return;
 
     var data = {

@@ -5,10 +5,10 @@ module.exports = {
 
     // Message history (list of dict s)
     message_history: [{
-            'id': 0,
-            'name': 'Server',
-            'message': 'Welcome! don\'t forget to have lots of fun!',
-            'timestamp': Date.now(),
-            'replies': []
+        'id': 0,
+        'name': 'Server',
+        'message': 'Welcome! don\'t forget to have lots of fun!',
+        'timestamp': Date.now(),
+        'replies': []
     }]
 };

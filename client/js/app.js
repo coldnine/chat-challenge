@@ -1,7 +1,7 @@
 // App
 var online_users = [], message_history = [];
 
-$(function() {
+$(function () {
     // Get online user-names
     $.get('/online_users', function (users) {
         online_users = users;
@@ -25,7 +25,7 @@ function add_user(username) {
 // Remove username from online-users list (user has left the chat room)
 function remove_user(username) {
     var index = online_users.indexOf(username);
-    if(index > -1) {
+    if (index > -1) {
         online_users.splice(index, 1);
         refresh_user_list();
     }
@@ -40,7 +40,7 @@ function refresh_message_history() {
     message_list.html('');
 
     // Add all users to list
-    for(i = 0; i < message_history.length; i++) {
+    for (i = 0; i < message_history.length; i++) {
         var data = message_history[i];
 
         var id = data['id'];
@@ -61,12 +61,12 @@ function add_message(id, nickname, message, timestamp) {
     // Append message to list
     message_list.append(' <li>\
         <div class="collapsible-header">\
-        <span class="badge timestamp" data-badge-caption="' + formatted_time  + '"></span>\
+        <span class="badge timestamp" data-badge-caption="' + formatted_time + '"></span>\
             <span class="new badge" id="replies-badge-' + id + '" style="display: none;" data-badge-caption="replies">0</span>\
             <span class="blue-text"><b>' + nickname + '</b></span>: ' + message + '\
         </div>\
         <div class="collapsible-body">\
-            <div class="replies collection" id="replies-list-' + id +'">\
+            <div class="replies collection" id="replies-list-' + id + '">\
             </div>\
             <div class="reply-input-wrapper row">\
                 <input type="text" class="col s12 validate reply-input" placeholder="Write a reply..." id="reply-input-' + id + '">\
@@ -84,17 +84,17 @@ function add_reply(id, nickname, message, timestamp) {
     var replies_list = $('#replies-list-' + id);
     replies_list.append('<div class="collection-item reply">\
             <span class="blue-text"><b>' + nickname + '</b></span>: ' + message + '\
-            <span class="badge timestamp reply-timestamp">' + formatted_time +  '</span>\
+            <span class="badge timestamp reply-timestamp">' + formatted_time + '</span>\
         </div>');
 
     // Change replies caption
     var replies_count = replies_list.children().length;
     var badge = $('#replies-badge-' + id);
 
-    if(badge.css('display') === 'none')
+    if (badge.css('display') === 'none')
         badge.show('slow');
 
-    if(replies_count === 1)
+    if (replies_count === 1)
         badge.attr('data-badge-caption', 'reply');
     else
         badge.attr('data-badge-caption', 'replies');
@@ -117,11 +117,11 @@ function refresh_reply_history() {
     var i;
 
     // For each message
-    for(i = 0; i < message_history.length; i++) {
+    for (i = 0; i < message_history.length; i++) {
         var j, id = message_history[i]['id'];
 
         // For each reply inside message
-        for(j = 0; j < message_history[i]['replies'].length; j++) {
+        for (j = 0; j < message_history[i]['replies'].length; j++) {
             var data = message_history[i]['replies'][j];
 
             var nickname = data['name'];
@@ -143,11 +143,11 @@ function refresh_user_list() {
 
     // Clear list
     var list_childern = user_list.children().slice(1);
-    for(i = 0; i < list_childern.length; i++)
+    for (i = 0; i < list_childern.length; i++)
         list_childern[i].remove();
 
     // Add all users to list
-    for(i = 0; i < online_users.length; i++)
+    for (i = 0; i < online_users.length; i++)
         user_list.append('<li class="collection-item"><div class="valign-wrapper"><i class="green-text tiny material-icons">stop</i>' + online_users[i] + '</div></li>');
 }
 

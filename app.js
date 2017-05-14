@@ -1,9 +1,9 @@
 // HTTP, EXPRESS, SOCKET.IO
-var express  = require('express');
-var app      = express();
-var http     = require('http').Server(app);
-var io       = require('socket.io')(http);
-var port  	 = 8081;
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = 8081;
 
 // Static web-page
 app.use(express.static(__dirname + '/client'));
@@ -13,30 +13,30 @@ require('./server/routes.js')(app);
 
 // CHAT BOT, MESSAGES, UTILITIES
 // Handle online users
-var users           = require('./server/online_users').online_users;
+var users = require('./server/online_users').online_users;
 
 // Handle message history
-var last_id         = require('./server/messages').last_id;
+var last_id = require('./server/messages').last_id;
 var message_history = require('./server/messages').message_history;
 
 // Chat bot
-var chat_bot        = require('./server/chat_bot')(io, message_history);
+var chat_bot = require('./server/chat_bot')(io, message_history);
 
 // UTILITIES
-var utilities       = require('./server/utilities')();
+var utilities = require('./server/utilities')();
 
 // Attach socket-id to nickname
 var socket_username = {};
 
 // Handle socket.io connections
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
     // New message received
-    socket.on('message', function(data){
+    socket.on('message', function (data) {
         // Get user name
         var username = socket_username[socket.id];
 
         // Check if user has set his name
-        if(!username)
+        if (!username)
             return;
 
         // Parse message with JSON
@@ -63,12 +63,12 @@ io.on('connection', function(socket) {
         console.log('MESSAGE \'' + data['name'] + '\':\'' + data['message'] + '\'');
     });
 
-    socket.on('reply', function(data){
+    socket.on('reply', function (data) {
         // Get user name
         var username = socket_username[socket.id];
 
         // Check if user has set his name
-        if(!username)
+        if (!username)
             return;
 
         // Parse message with JSON
@@ -88,10 +88,11 @@ io.on('connection', function(socket) {
         io.emit('reply', JSON.stringify(data));
 
         // Push to ES database
-        if(message_history[id]['replies'].length === 0) {
+        if (message_history[id]['replies'].length === 0) {
             chat_bot.esclient.bulk({
-                body: [{ index:  { _index: 'chat', _type: 'messages', _id: 1 } }, message_history[id]]
-            }, function (err, resp) { });
+                body: [{index: {_index: 'chat', _type: 'messages', _id: 1}}, message_history[id]]
+            }, function (err, resp) {
+            });
         }
 
         // Push new data to message_history
@@ -101,7 +102,7 @@ io.on('connection', function(socket) {
     });
 
     // User sets new nickname
-    socket.on('set nickname', function(name){
+    socket.on('set nickname', function (name) {
         // Add to online users array, escape HTML
         name = utilities.escape_html(name);
         socket_username[socket.id] = name;
@@ -119,12 +120,12 @@ io.on('connection', function(socket) {
     });
 
     // User disconnected
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function () {
         // Get name from socket
         var name = socket_username[socket.id];
 
         // Delete name from arrays and dict s
-        if(socket.id in socket_username) {
+        if (socket.id in socket_username) {
             var index = users.indexOf(name);
 
             if (index > -1)
@@ -142,6 +143,6 @@ io.on('connection', function(socket) {
 });
 
 // HTTP listen to 'port'
-http.listen(port, function() {
+http.listen(port, function () {
     console.log("Web server listening on port " + port);
 });

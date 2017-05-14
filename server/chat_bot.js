@@ -91,21 +91,23 @@ module.exports = function (io, message_history) {
         index: 'chat',
         id: '1',
         type: 'messages'
-    }, function (err, resp, status) { });
+    }, function (err, resp, status) {
+    });
 
     // Create new index (chat/messages)
     esclient.index({
         index: 'chat',
         type: 'messages',
         body: {}
-    }, function (err, resp, status) { });
+    }, function (err, resp, status) {
+    });
 
     // Export ES client
     module.esclient = esclient;
 
     // Handle new user (send a nice message)
     module.handle_new_user = function (username) {
-        send_message('Welcome ' + username  + ' to ChattyChat!');
+        send_message('Welcome ' + username + ' to ChattyChat!');
         send_reply(message_history.length - 1, '<a target="_blank" href="' + dog_gifs[Math.floor(Math.random() * dog_gifs.length)] + '">here is a random cute dog GIF.</a>')
     };
 
@@ -120,7 +122,7 @@ module.exports = function (io, message_history) {
 
         } else if (message === 'random fact') {
             // Random fact
-            reply_message = 'You want a random fact? very well then - <b>' + random_facts[Math.floor(Math.random() * random_facts.length)] + '</b>'
+            reply_message = 'You want a random fact? very well then - <b>' + random_facts[Math.floor(Math.random() * random_facts.length)] + '</b>';
 
         } else if (message[message.length - 1] === '?') {
             // Use elastic search to handle same questions which were asked differently
@@ -136,17 +138,15 @@ module.exports = function (io, message_history) {
                 if (error) {
                     console.log("Search error: " + error)
                 } else {
-                    for(var i = 0; i < response.hits.hits.length; i++) {
+                    for (var i = 0; i < response.hits.hits.length; i++) {
                         var hit = response.hits.hits[i];
 
-                        console.log(hit);
-
                         if (message_history[hit['_source']['id']]['replies'].length > 0 &&
-                                message_history[hit['_source']['id']]['replies'][0]['name'] !== bot_name) {
+                            message_history[hit['_source']['id']]['replies'][0]['name'] !== bot_name) {
 
                             var original_name = message_history[hit['_source']['id']]['replies'][0]['name'];
                             reply_message = message_history[hit['_source']['id']]['replies'][0]['message'];
-                            reply_message = 'This question might have been answered by "<i>' + original_name + '</i>": "<i>' + reply_message +'</i>"';
+                            reply_message = 'This question might have been answered by "<i>' + original_name + '</i>": "<i>' + reply_message + '</i>"';
 
                             send_reply(id, reply_message);
 

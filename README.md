@@ -1,5 +1,5 @@
 # Chat Challenge
-Live example: -- link --
+A chat server and client (JS based) - including a chat bot.
 
 ### Requirements
 - Node.js 
@@ -34,9 +34,11 @@ Commands:
 
 ### Single Message JSON Structure
 Each message contains the following:
+- ID of the message
 - Sender name
 - Message content
 - Timestamp of the message
+- List of messsage replies
 
 A "parent" question also contains a list of replies.
 
